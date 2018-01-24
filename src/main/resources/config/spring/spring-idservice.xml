@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 主键生成器记录表 -->
+    <bean id="sequenceTable" class="cn.com.winning.ssgj.base.id.SequenceTable" init-method="init">
+        <property name="tableName" value="ssgj_seqno" /><!--表名  -->
+        <property name="idColume" value="seqno" /><!-- id列  -->
+        <property name="typeColume" value="tabletype"  /><!--主键类型  -->
+        <property name="dataSource" ref="dataSource" /><!-- 数据源 -->
+    </bean> 
+    
+  <!--   说明： 
+  		1、如果需要适用字符串格式作为主键，则需要制定format
+  		2、如果使用数字作为主键，则不需要指定format
+  		3、dateCutOff 为主键类型按照天切换的时候使用
+  <bean id="userCodeService" class="cn.com.winning.ssgj.base.id.StepSequenceFactory">
+        <property name="table" ref="sequenceTable" />
+        <property name="type" value="USER_ID" />
+        <property name="step" value="1" />
+        <property name="format" value="{########}" />
+        <property name="dateCutOff" value="false" />
+    </bean>     -->
+    <!--用户ID 主键生成器  -->
+     <bean id="userIdService" class="cn.com.winning.ssgj.base.id.StepSequenceFactory">
+        <property name="table" ref="sequenceTable" />
+        <property name="type" value="USER_ID" />
+        <property name="step" value="1" />
+    </bean>
+     <!--角色ID 主键生成器  -->
+    <bean id="roleIdService" class="cn.com.winning.ssgj.base.id.StepSequenceFactory">
+        <property name="table" ref="sequenceTable" />
+        <property name="type" value="ROLE_ID" />
+        <property name="step" value="1" />
+    </bean>
+	
+	<!--功能ID 主键生成器  -->
+    <bean id="funcIdService" class="cn.com.winning.ssgj.base.id.StepSequenceFactory">
+        <property name="table" ref="sequenceTable" />
+        <property name="type" value="FUNC_ID" />
+        <property name="step" value="1" />
+    </bean>
+    <!-- 管理员角色代码 -->
+     <bean id="roleaCodeService" class="cn.com.winning.ssgj.base.id.StepSequenceFactory">
+        <property name="table" ref="sequenceTable" />
+        <property name="type" value="ROLEA_CODE" />
+        <property name="step" value="1" />
+        <property name="format" value="RA_{########}" />
+        <property name="dateCutOff" value="false" />
+    </bean> 
+    <!--公司角色代码  -->
+    <bean id="rolecCodeService" class="cn.com.winning.ssgj.base.id.StepSequenceFactory">
+        <property name="table" ref="sequenceTable" />
+        <property name="type" value="ROLEC_CODE" />
+        <property name="step" value="1" />
+        <property name="format" value="RC_{########}" />
+        <property name="dateCutOff" value="false" />
+    </bean> 
+    <!--医院角色代码  -->
+     <bean id="rolehCodeService" class="cn.com.winning.ssgj.base.id.StepSequenceFactory">
+        <property name="table" ref="sequenceTable" />
+        <property name="type" value="ROLEH_CODE" />
+        <property name="step" value="1" />
+        <property name="format" value="RH_{########}" />
+        <property name="dateCutOff" value="false" />
+    </bean> 
+</beans>
